@@ -22,7 +22,7 @@
             font-size: 5vw;              
             max-width: 90vw;             
             font-weight: bold;
-            white-space: normal;     /* AGORA QUEBRA LINHA SEM CORTAR */
+            white-space: normal;
             overflow: hidden;
             border-right: 3px solid #c2185b;
             margin-inline: auto;
@@ -32,7 +32,7 @@
             border-right: none !important;
         }
 
-        /* ---- CARROSSEL TOTALMENTE RESPONSIVO E SEM BORDA ---- */
+        /* ---- CARROSSEL CENTRALIZADO COM FADE ---- */
         .carousel {
             width: 100%;
             display: flex;
@@ -40,32 +40,31 @@
             align-items: center;
             position: relative;
             margin-top: 20px;
+            height: 70vh; /* garante altura */
         }
 
         .carousel img {
             width: 90vw;
+            max-width: 500px;
             height: auto;
             max-height: 70vh;
-
             object-fit: contain;
 
-            /* REMOVIDO: fundo, borda e sombra */
-            background: none;
-            border: none;
-            padding: 0;
-            box-shadow: none;
+            border: 6px solid #ff8fb7;
+            border-radius: 20px;
+            padding: 8px;
+            box-shadow: 0 0 18px #ff7ca3;
 
-            position: absolute;
-            opacity: 0;
-            transition: opacity .8s ease-in-out;
-
+            position: absolute; /* todas sobrepostas */
             left: 50%;
-            transform: translateX(-50%);
+            top: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0; /* invisível por padrão */
+            transition: opacity 0.8s ease-in-out; /* efeito fade */
         }
 
         .carousel img.active {
-            opacity: 1;
-            position: relative;
+            opacity: 1; /* visível quando ativa */
         }
 
         /* CORAÇÕES */
@@ -194,7 +193,7 @@ Eu te amo hoje, amanhã e sempre. ❤️
             }
         }, 1000);
 
-        /* Carrossel */
+        /* Carrossel com efeito fade */
         let index = 0;
         const images = document.querySelectorAll(".carousel img");
 
