@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Você ❤️</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffd6e7;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        /* ---- TÍTULO RESPONSIVO ---- */
+        #title {
+            margin-top: 20px;
+            color: #c2185b;
+            font-size: 5vw;              /* tamanho ajustável */
+            max-width: 90vw;             /* nunca ultrapassa a tela */
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #c2185b;
+            margin-inline: auto;
+        }
+
+        #title.finished {
+            border-right: none !important;
+        }
+
+        /* ---- CARROSSEL TOTALMENTE RESPONSIVO ---- */
+        .carousel {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .carousel img {
+            width: 90vw;                  /* garante que nunca ultrapassa */
+            height: auto;                 /* mantém proporção */
+            max-height: 70vh;
+
+            object-fit: contain;
+            background: white;
+            border: 4px solid #ff8fb7;
+            border-radius: 20px;
+            padding: 6px;
+            box-shadow: 0 0 18px #ff7ca3;
+
+            position: absolute;
+            opacity: 0;
+            transition: opacity .8s ease-in-out;
+
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .carousel img.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        /* CORAÇÕES */
+        .heart {
+            position: fixed;
+            top: -10px;
+            color: red;
+            font-size: 20px;
+            animation: fall linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+        }
+
+        /* TEXTO */
+        #textinho {
+            width: 88%;
+            max-width: 600px;
+            margin: 25px auto;
+            padding: 15px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 0 10px #00000025;
+            color: #ad1457;
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: justify;
+            white-space: pre-line;
+        }
+
+        /* Ajuste para títulos em telas muito pequenas */
+        @media (max-width: 450px) {
+            #title {
+                font-size: 6vw;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h1 id="title"></h1>
+
+    <div class="carousel">
+        <img src="foto1.jpg" class="active">
+        <img src="foto2.jpeg">
+        <img src="foto3.jpeg">
+        <img src="foto4.jpeg">
+        <img src="foto5.jpeg">
+        <img src="foto6.jpeg">
+        <img src="foto7.jpeg">
+        <img src="foto8.jpeg">
+        <img src="foto9.jpeg">
+        <img src="foto10.jpeg">
+    </div>
+
+    <div id="textinho">
+Feliz dois anos, meu baixinho cacheado.  
+Hoje celebramos não só o tempo que passou, mas tudo o que construímos juntos.  
+Eu te amo com a minha alma inteira, de um jeito que transborda, acalma e ilumina.  
+Obrigada por cada sorriso que você me deu, por cada abraço que me trouxe paz  
+e por todos os momentos em que você foi meu porto seguro.  
+Você chegou na minha vida como quem não quer nada,  
+mas ficou como tudo.  
+É com você que eu aprendi o que é cuidado, parceria e amor de verdade.  
+Sou grata por cada conversa boba, cada foto inesperada  
+e cada olhar que diz mais que mil palavras.  
+Obrigada por me escolher todos os dias, até nos difíceis.  
+Você é doce, engraçado, teimoso e completamente apaixonante.  
+Do seu lado, tudo fica leve, bonito e possível.  
+Do seu lado, eu quero futuro, planos e muitos outros aniversários nossos.  
+Você é a melhor parte da minha vida.  
+Eu te amo hoje, amanhã e sempre. ❤️
+    </div>
+
+    <script>
+        /* ---- FUNÇÃO DO TIMER PARA O TÍTULO ---- */
+        function getTimeText() {
+            const startDate = new Date("2023-11-24 00:00:00");
+            const now = new Date();
+
+            let diff = now - startDate;
+
+            const anos = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+            diff -= anos * 365 * 24 * 60 * 60 * 1000;
+
+            const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutos = Math.floor((diff / (1000 * 60)) % 60);
+            const segundos = Math.floor((diff / 1000) % 60);
+
+            const textoAno = anos === 1 ? "ano" : "anos";
+            const textoDia = dias === 1 ? "dia" : "dias";
+
+            return `Feliz ${anos} ${textoAno}, ${dias} ${textoDia}, ${horas}h ${minutos}m ${segundos}s amor ❤️`;
+        }
+
+        /* Efeito máquina só no início */
+        const titleEl = document.getElementById("title");
+        let fullText = getTimeText();
+        let i = 0;
+
+        function typeWriter() {
+            if (i < fullText.length) {
+                titleEl.textContent += fullText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            } else {
+                titleEl.classList.add("finished");
+            }
+        }
+
+        typeWriter();
+
+        /* Atualiza o timer só depois do efeito */
+        setInterval(() => {
+            fullText = getTimeText();
+            if (titleEl.classList.contains("finished")) {
+                titleEl.textContent = fullText;
+            }
+        }, 1000);
+
+        /* Carrossel */
+        let index = 0;
+        const images = document.querySelectorAll(".carousel img");
+
+        setInterval(() => {
+            images[index].classList.remove("active");
+            index = (index + 1) % images.length;
+            images[index].classList.add("active");
+        }, 2000);
+
+        /* corações */
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+
+</body>
+</html>
