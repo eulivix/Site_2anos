@@ -19,10 +19,10 @@
         #title {
             margin-top: 20px;
             color: #c2185b;
-            font-size: 5vw;              /* tamanho ajustável */
-            max-width: 90vw;             /* nunca ultrapassa a tela */
+            font-size: 5vw;              
+            max-width: 90vw;             
             font-weight: bold;
-            white-space: nowrap;
+            white-space: normal;     /* AGORA QUEBRA LINHA SEM CORTAR */
             overflow: hidden;
             border-right: 3px solid #c2185b;
             margin-inline: auto;
@@ -32,7 +32,7 @@
             border-right: none !important;
         }
 
-        /* ---- CARROSSEL TOTALMENTE RESPONSIVO ---- */
+        /* ---- CARROSSEL TOTALMENTE RESPONSIVO E SEM BORDA ---- */
         .carousel {
             width: 100%;
             display: flex;
@@ -43,16 +43,17 @@
         }
 
         .carousel img {
-            width: 90vw;                  /* garante que nunca ultrapassa */
-            height: auto;                 /* mantém proporção */
+            width: 90vw;
+            height: auto;
             max-height: 70vh;
 
             object-fit: contain;
-            background: white;
-            border: 4px solid #ff8fb7;
-            border-radius: 20px;
-            padding: 6px;
-            box-shadow: 0 0 18px #ff7ca3;
+
+            /* REMOVIDO: fundo, borda e sombra */
+            background: none;
+            border: none;
+            padding: 0;
+            box-shadow: none;
 
             position: absolute;
             opacity: 0;
@@ -100,7 +101,7 @@
             white-space: pre-line;
         }
 
-        /* Ajuste para títulos em telas muito pequenas */
+        /* Ajuste para telas muito pequenas */
         @media (max-width: 450px) {
             #title {
                 font-size: 6vw;
@@ -168,7 +169,7 @@ Eu te amo hoje, amanhã e sempre. ❤️
             return `Feliz ${anos} ${textoAno}, ${dias} ${textoDia}, ${horas}h ${minutos}m ${segundos}s amor ❤️`;
         }
 
-        /* Efeito máquina só no início */
+        /* Efeito máquina */
         const titleEl = document.getElementById("title");
         let fullText = getTimeText();
         let i = 0;
@@ -185,7 +186,7 @@ Eu te amo hoje, amanhã e sempre. ❤️
 
         typeWriter();
 
-        /* Atualiza o timer só depois do efeito */
+        /* Atualiza o timer automaticamente depois do efeito */
         setInterval(() => {
             fullText = getTimeText();
             if (titleEl.classList.contains("finished")) {
